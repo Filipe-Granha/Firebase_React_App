@@ -32,7 +32,7 @@
 
 
 
-  // ACCESSING ACCOUNTS
+  // ACCESSING ACCOUNTS - App Title
   const dbAccounts = firebase.database().ref("accounts");
   dbAccounts.on("value", gotData1, errData1);
 
@@ -45,7 +45,7 @@
       const app = accounts[k].apps;
       const almost_title = Object.values(app);
       const title = almost_title[0].title;
-      // console.log(title);
+
 
 
       // DISPLAYING APPS' TITLES
@@ -65,7 +65,7 @@
 
 
 
-// ACCESSING USERS 
+// ACCESSING USERS - User Name & Account ID
   const dbUsers = firebase.database().ref("users");
   dbUsers.on("value", gotData2, errData2);
 
