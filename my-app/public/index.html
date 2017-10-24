@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="theme-color" content="#000000">
+  
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json">
+    <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
+    <link rel="stylesheet" href="../src/index.css">
+    
+    <title>BeezApp</title>
+  </head>
+  <body>
+   
+
+<!-- FIREBASE SNIPPET -->
+<script src="https://www.gstatic.com/firebasejs/4.6.0/firebase.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyAh3CuL3WQUkvvclgnofd_B_Y1kLUW0jQk",
+    authDomain: "beezapp2017.firebaseapp.com",
+    databaseURL: "https://beezapp2017.firebaseio.com",
+    projectId: "beezapp2017",
+    storageBucket: "beezapp2017.appspot.com",
+    messagingSenderId: "452232314415"
+  };
+  firebase.initializeApp(config);
+  // END OF FIREBASE SNIPPET
+
+
+
+
+  // ACCESSING ACCOUNTS
+  const dbAccounts = firebase.database().ref("accounts");
+  dbAccounts.on("value", gotData1, errData1);
+
+  function gotData1(data1) {
+    const accounts = data1.val();
+    const keys1 = Object.keys(accounts);
+
+    for(i=0;i<keys1.length;i++){
+      const k = keys1[i];
+      const app = accounts[k].apps;
+      const almost_title = Object.values(app);
+      const title = almost_title[0].title;
+      // console.log(title);
+
+
+      // DISPLAYING APPS' TITLES
+      const titlesList = document.getElementById("appTitles");
+      const titlesLi = document.createElement("LI");
+      titlesLi.innerText = title;
+      titlesList.appendChild(titlesLi);
+    };
+  };
+
+  function errData1 (err) {
+    console.log("error!");
+    console.log(err);
+  };
+
+
+
+
+
+// ACCESSING USERS 
+  const dbUsers = firebase.database().ref("users");
+  dbUsers.on("value", gotData2, errData2);
+
+  function gotData2(data2) {
+    const users = data2.val();
+    const keys2 = Object.keys(users);
+
+    for(j=0;j<keys2.length;j++){
+      const b = keys2[j];
+      const name = users[b].name;
+      // console.log(name);
+      const accountId = users[b].account;
+      // console.log(accountId);
+
+
+      // DISPLAYING USER NAME
+      const usersList = document.getElementById("usernames");
+      const usersLi = document.createElement("LI");
+      usersLi.innerText = name;
+      usersList.appendChild(usersLi);
+
+
+      // DISPLAYING ACCOUNT ID
+      const accountsList = document.getElementById("accountIds");
+      const accountsLi = document.createElement("LI");
+      accountsLi.innerText = accountId;
+      accountsList.appendChild(accountsLi);
+    };
+  };
+
+  function errData2 (err) {
+    console.log("error!");
+    console.log(err);
+  };
+
+</script>
+
+    <noscript>
+      You need to enable JavaScript to run this app.
+    </noscript>
+    <div id="root"></div>
+ 
+  </body>
+</html>
